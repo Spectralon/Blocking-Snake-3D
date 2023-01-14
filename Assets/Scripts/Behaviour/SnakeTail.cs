@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class SnakeTail : MonoBehaviour
 {
-    public bool IsInit { get; private set; } = false;
-
     private Rigidbody _rigidbody;
 
     public Rigidbody Rigidbody
@@ -18,6 +16,8 @@ public class SnakeTail : MonoBehaviour
         }
         private set => _rigidbody = value;
     }
+
+    public bool IsInit { get; private set; } = false;
 
     private Snake Parent;
 

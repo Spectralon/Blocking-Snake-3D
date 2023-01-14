@@ -12,9 +12,9 @@ public class Snake : MonoBehaviour
 
     [SerializeField] int _maxSegments = 5;
 
-    [SerializeField] Vector3 _direction = Vector3.back;
-
     [SerializeField] float _velocityFactor = 2.5f;
+
+    [SerializeField] Vector3 _direction = Vector3.back;
 
     public Vector3 Direction => _direction;
 
@@ -68,13 +68,19 @@ public class Snake : MonoBehaviour
         }
     }
 
-    private void Start()
+    public bool IsInit { get; private set; } = false;
+
+    private GameController GameController;
+
+    public void Init(GameController gameController)
     {
+        GameController = gameController;
+
         Head.gameObject.SetActive(true);
 
         foreach (var segment in Segments)
             segment.gameObject.SetActive(true);
 
-
+        IsInit = true;
     }
 }
