@@ -239,6 +239,7 @@ Transform:
   - {fileID: 1229506979}
   - {fileID: 605588661}
   - {fileID: 1965646256}
+  - {fileID: 1792108657}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -725,6 +726,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controls: {fileID: 1581926786}
   _snake: {fileID: 605588662}
+--- !u!1 &1792108656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1792108657}
+  - component: {fileID: 1792108658}
+  m_Layer: 0
+  m_Name: WallSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1792108657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792108656}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6, y: 1, z: 93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 260083899}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1792108658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792108656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64950075633fe9449b08f1939a1edefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseInstance: {fileID: 8162271495665727683, guid: cfa041808b4fabf4c81a5848868b796e, type: 3}
+  _spawnDirection: {x: 1, y: 0, z: 0}
+  _intervalDistance: 4
+  _flowLength: 4
+  _maxInstances: 20
+  _flowDirection: {x: 0, y: 0, z: -1}
+  _flowDistance: 120
+  _flowTime: 5
+  _spawnChance: 0.1
+  _spawnInterval: 1
 --- !u!1 &1965646255
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,4 +834,3 @@ MonoBehaviour:
   _flowTime: 5
   _spawnChance: 0.5
   _spawnInterval: 1
-  _spawnAttempts: 5

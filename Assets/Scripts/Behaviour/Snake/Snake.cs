@@ -73,6 +73,7 @@ public class Snake : MonoBehaviour
 
         GrowDirection.Normalize();
 
+        Head.GetComponent<SnakeHead>().Init(GameController.Controls);
         Head.gameObject.SetActive(true);
 
         foreach (var segment in Segments)

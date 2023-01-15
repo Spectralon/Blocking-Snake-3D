@@ -10,18 +10,24 @@ public class Controls : MonoBehaviour
     public float MaxDistance => _maxDistance;
     public float Sensitivity => _sensitivity;
 
+    public State ControlsState { get; private set; } = State.Idle;
+
     public bool IsInit { get; private set; } = false;
 
-    private Transform Head;
+    private SnakeHead Head;
 
     private GameController GameController;
 
     private float CurrentDistance = 0f;
 
+    private bool LeftLimit = false;
+
+    private bool RightLimit = false;
+
     public void Init(GameController gameController)
     {
         GameController = gameController;
-        Head = GameController.Snake.Head.GetComponent<Transform>();
+        Head = GameController.Snake.Head.GetComponent<SnakeHead>();
         IsInit = true;
     }
 
@@ -30,18 +36,54 @@ public class Controls : MonoBehaviour
     {
         if (!IsInit) return;
 
-        if (CurrentDistance >= -MaxDistance && Input.GetKey(KeyCode.LeftArrow))
+        bool moving = false;
+
+        if (!LeftLimit && CurrentDistance >= -MaxDistance && Input.GetKey(KeyCode.LeftArrow))
         {
             float distance = Sensitivity * Time.deltaTime;
-            Head.Translate(Vector3.left * distance);
+            Head.TryMove(Vector3.left * distance);
             CurrentDistance -= distance;
+            ControlsState = State.MovingLeft;
+            moving = true;
         }
 
-        if (CurrentDistance <= MaxDistance && Input.GetKey(KeyCode.RightArrow))
+        if (!RightLimit && CurrentDistance <= MaxDistance && Input.GetKey(KeyCode.RightArrow))
         {
             float distance = Sensitivity * Time.deltaTime;
-            Head.Translate(Vector3.right * distance);
+            Head.TryMove(Vector3.right * distance);
             CurrentDistance += distance;
+            ControlsState = State.MovingRight;
+            moving = true;
         }
+
+        if(!moving) ControlsState = State.Idle;
+    }
+
+    public void Limit()
+    {
+        switch (ControlsState)
+        {
+            case State.MovingLeft:
+                LeftLimit = true;
+                break;
+            case State.MovingRight:
+                RightLimit = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void Unlimit()
+    {
+        LeftLimit = false;
+        RightLimit = false;
+    }
+
+    public enum State
+    {
+        Idle,
+        MovingLeft,
+        MovingRight
     }
 }
