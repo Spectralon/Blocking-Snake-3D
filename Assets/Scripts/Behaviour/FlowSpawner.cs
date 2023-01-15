@@ -16,7 +16,6 @@ public class FlowSpawner : MonoBehaviour
     [SerializeField, Min(0.01f)] float _flowTime = 10f;
     [SerializeField, Range(0f, 1f)] float _spawnChance = 0.1f;
     [SerializeField, Min(0.01f)] float _spawnInterval = 2f;
-    [SerializeField, Min(0)] int _spawnAttempts = 5;
 
     public Vector3 SpawnDirection => _spawnDirection;
     public float IntervalDistance => _intervalDistance;
@@ -27,7 +26,6 @@ public class FlowSpawner : MonoBehaviour
     public float FlowTime => _flowTime;
     public float SpawnChance => _spawnChance;
     public float SpawnInterval => _spawnInterval;
-    public int SpawnAttempts => _spawnAttempts;
 
     private FlowingObject[] _instances;
 
@@ -96,8 +94,7 @@ public class FlowSpawner : MonoBehaviour
         MoveSequence
             .Append(instance.transform.DOLocalMove(pos + FlowDistance * FlowDirection, FlowTime))
             .SetEase(Ease.Linear)
-            .AppendCallback(() => instance.gameObject.SetActive(false))
-            ;
+            .AppendCallback(() => instance.gameObject.SetActive(false));
 
         instance.Init(this, MoveSequence);
     }
