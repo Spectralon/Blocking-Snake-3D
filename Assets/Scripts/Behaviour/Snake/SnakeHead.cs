@@ -27,11 +27,6 @@ public class SnakeHead : MonoBehaviour
 
     public void TryMove(Vector3 direction)
     {
-        //if (Vector3.Dot(direction, LastNormal) < 0)
-        //{
-        //    Debug.Log(Vector3.Dot(direction, LastNormal));
-        //    return;
-        //}
         transform.Translate(direction);
     }
 
@@ -43,12 +38,10 @@ public class SnakeHead : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         LastNormal = collision.contacts[0].normal;
-        //if (Vector3.Dot(Rigidbody.velocity.normalized, LastNormal) < 0) Controls.Limit();
     }
 
     private void OnCollisionExit(Collision collision)
     {
         LastNormal = Vector3.up;
-        //Controls.Unlimit();
     }
 }
