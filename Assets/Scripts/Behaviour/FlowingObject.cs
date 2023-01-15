@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class FlowingObject : MonoBehaviour
 {
-    private FlowSpawner Parent;
+    protected FlowSpawner Parent;
 
-    private Sequence Sequence;
+    protected Sequence Sequence;
 
     public void Init(FlowSpawner parent, Sequence sequence) 
     {

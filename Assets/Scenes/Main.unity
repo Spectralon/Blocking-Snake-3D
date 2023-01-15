@@ -769,7 +769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64950075633fe9449b08f1939a1edefb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseInstance: {fileID: 6347760426171231323, guid: ae9ceff8f78927440b06840e04caf7e4, type: 3}
+  _baseInstance: {fileID: 2600051050778423365, guid: ae9ceff8f78927440b06840e04caf7e4, type: 3}
   _spawnDirection: {x: 1, y: 0, z: 0}
   _intervalDistance: 4
   _flowLength: 5

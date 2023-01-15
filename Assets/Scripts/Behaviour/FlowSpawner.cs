@@ -102,6 +102,16 @@ public class FlowSpawner : MonoBehaviour
         instance.Init(this, MoveSequence);
     }
 
+    public void Pause()
+    {
+        if (IsActive) ToggleActive();
+    }
+
+    public void Resume()
+    {
+        if (!IsActive) ToggleActive();
+    }
+
     [ContextMenu("Toggle Active")]
     public void ToggleActive()
     {
