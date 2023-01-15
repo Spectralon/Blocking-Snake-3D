@@ -38,6 +38,6 @@ public class SnakeTail : MonoBehaviour
     {
         if (!IsInit) return;
 
-        Rigidbody.AddForce(Parent.Direction * VelocityFactor);
+        Rigidbody.AddForce(Parent.GrowDirection * VelocityFactor);
     }
 }

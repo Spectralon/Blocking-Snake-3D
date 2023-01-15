@@ -5,18 +5,13 @@ using UnityEngine;
 public class Snake : MonoBehaviour
 {
     [SerializeField] Rigidbody _headPrefab;
-
     [SerializeField] HingeJoint _segmentPrefab;
-
-    [SerializeField] float _interval = 2.5f;
-
-    [SerializeField] int _maxSegments = 5;
-
+    [SerializeField, Min(0)] float _interval = 2.5f;
+    [SerializeField, Min(1)] int _maxSegments = 5;
     [SerializeField] float _velocityFactor = 2.5f;
+    [SerializeField] Vector3 _growDirection = Vector3.back;
 
-    [SerializeField] Vector3 _direction = Vector3.back;
-
-    public Vector3 Direction => _direction;
+    public Vector3 GrowDirection => _growDirection;
 
     private Rigidbody _head;
 
@@ -51,7 +46,7 @@ public class Snake : MonoBehaviour
                     var prevSegment = i == 0 ? Head : _segments[i - 1];
 
                     segment.connectedBody = prevSegment;
-                    segment.transform.localPosition = prevSegment.transform.localPosition + _interval * _direction;
+                    segment.transform.localPosition = prevSegment.transform.localPosition + _interval * _growDirection;
 
                     if (i < lastIndex && segment.TryGetComponent<Collider>(out var collider)) collider.enabled = false;
 
@@ -75,6 +70,8 @@ public class Snake : MonoBehaviour
     public void Init(GameController gameController)
     {
         GameController = gameController;
+
+        GrowDirection.Normalize();
 
         Head.gameObject.SetActive(true);
 
