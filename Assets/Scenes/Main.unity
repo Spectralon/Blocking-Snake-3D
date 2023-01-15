@@ -711,7 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxDistance: 8
-  _sensitivity: 50
+  _sensitivity: 30
 --- !u!114 &1581926787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,6 +726,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controls: {fileID: 1581926786}
   _snake: {fileID: 605588662}
+  _obstacleGenerators:
+  - {fileID: 1965646257}
+  - {fileID: 1792108658}
 --- !u!1 &1792108656
 GameObject:
   m_ObjectHideFlags: 0

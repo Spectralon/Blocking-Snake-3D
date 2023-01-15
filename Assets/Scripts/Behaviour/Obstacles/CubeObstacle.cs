@@ -16,7 +16,7 @@ public class CubeObstacle : FlowingObject
     {
         if (!other.TryGetComponent(out SnakeHead player)) return;
 
-        if(Contacts == 0) Parent.Pause();   // TODO: Вынести в GameController и засинхронить для всех спавнеров
+        if(Contacts == 0) GameController.PauseFlow();
         Contacts++;
     }
 
@@ -25,6 +25,6 @@ public class CubeObstacle : FlowingObject
         if (!other.TryGetComponent(out SnakeHead player)) return;
 
         Contacts--;
-        if (Contacts == 0) Parent.Resume(); // TODO: Вынести в GameController и засинхронить для всех спавнеров
+        if (Contacts == 0) GameController.ResumeFlow();
     }
 }

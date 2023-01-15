@@ -55,9 +55,12 @@ public class FlowSpawner : MonoBehaviour
 
     private int NumInstances = 0;
 
+    private GameController GameController;
+
     [ContextMenu("Init spawner")]
-    public void Init()
+    public void Init(GameController gameController)
     {
+        GameController = gameController;
         Reload();
         StartCoroutine(SpawnLoop());
     }
@@ -96,7 +99,7 @@ public class FlowSpawner : MonoBehaviour
             .SetEase(Ease.Linear)
             .AppendCallback(() => instance.gameObject.SetActive(false));
 
-        instance.Init(this, MoveSequence);
+        instance.Init(this, MoveSequence, GameController);
     }
 
     public void Pause()

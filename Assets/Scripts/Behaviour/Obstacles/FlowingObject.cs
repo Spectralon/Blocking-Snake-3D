@@ -9,10 +9,13 @@ public class FlowingObject : MonoBehaviour
 
     protected Sequence Sequence;
 
-    public void Init(FlowSpawner parent, Sequence sequence) 
+    protected GameController GameController;
+
+    public void Init(FlowSpawner parent, Sequence sequence, GameController gameController) 
     {
         Parent = parent;
         Sequence = sequence;
+        GameController = gameController;
     }
 
     public void TogglePause()

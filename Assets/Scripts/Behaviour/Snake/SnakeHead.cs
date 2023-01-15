@@ -43,10 +43,12 @@ public class SnakeHead : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         LastNormal = collision.contacts[0].normal;
+        //if (Vector3.Dot(Rigidbody.velocity.normalized, LastNormal) < 0) Controls.Limit();
     }
 
     private void OnCollisionExit(Collision collision)
     {
         LastNormal = Vector3.up;
+        //Controls.Unlimit();
     }
 }
