@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -12,11 +13,13 @@ public class CubeObstacle : FlowingObject
 
     #region Unity Editor input
 
+    [SerializeField] TMP_Text _label;
     [SerializeField] int _minValue = 1;
     [SerializeField] int _maxValue = 5;
     [SerializeField, Min(0)] float _damageInterval = 0.1f;
     [SerializeField, Min(0)] float _waitInterval = 0.1f;
 
+    private TMP_Text Label => _label;
     private int MinValue => _minValue;
     private int MaxValue => _maxValue;
     private float DamageInterval => _damageInterval;
@@ -30,7 +33,14 @@ public class CubeObstacle : FlowingObject
     public int Value
     {
         get => _value;
-        private set => _value = value;
+        private set
+        {
+            _value = value;
+            if (_value > 0) 
+                Label.text = _value.ToString();
+            else 
+                Label.text = "";
+        }
     }
 
     private int HeadInstanceID
