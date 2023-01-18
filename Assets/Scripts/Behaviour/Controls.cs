@@ -31,7 +31,6 @@ public class Controls : MonoBehaviour
         IsInit = true;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (!IsInit) return;
@@ -65,9 +64,11 @@ public class Controls : MonoBehaviour
         {
             case State.MovingLeft:
                 LeftLimit = true;
+                Head.InterruptMove();
                 break;
             case State.MovingRight:
                 RightLimit = true;
+                Head.InterruptMove();
                 break;
             default:
                 break;

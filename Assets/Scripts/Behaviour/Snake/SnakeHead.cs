@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody))]
 public class SnakeHead : MonoBehaviour
 {
     private Rigidbody _rigidbody;
+
+    private Sequence MoveSequence;
 
     public Rigidbody Rigidbody
     {
@@ -27,7 +30,13 @@ public class SnakeHead : MonoBehaviour
 
     public void TryMove(Vector3 direction)
     {
-        transform.Translate(direction);
+        MoveSequence = DOTween.Sequence();
+        MoveSequence.Append(transform.DOBlendableLocalMoveBy(direction, 0.01f));
+    }
+
+    public void InterruptMove()
+    {
+        MoveSequence.Pause();
     }
 
     public Vector3 Project(Vector3 forward)

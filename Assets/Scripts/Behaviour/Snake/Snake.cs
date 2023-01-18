@@ -48,7 +48,8 @@ public class Snake : MonoBehaviour
                     segment.connectedBody = prevSegment;
                     segment.transform.localPosition = prevSegment.transform.localPosition + _interval * _growDirection;
 
-                    if (i < lastIndex && segment.TryGetComponent<Collider>(out var collider)) collider.enabled = false;
+                    // TODO: Настройки > Реалистичная физика
+                    //if (i < lastIndex && segment.TryGetComponent<Collider>(out var collider)) collider.enabled = false;
 
                     _segments[i] = segment.GetComponent<Rigidbody>();
                     _segments[i].constraints = RigidbodyConstraints.FreezePositionY;
