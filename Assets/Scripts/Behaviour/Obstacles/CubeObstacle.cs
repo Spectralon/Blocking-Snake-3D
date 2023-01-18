@@ -106,4 +106,9 @@ public class CubeObstacle : FlowingObject
             yield return interval;
         }
     }
+
+    private void OnApplicationQuit()
+    {
+        ContactingObstacles = new();
+    }
 }
