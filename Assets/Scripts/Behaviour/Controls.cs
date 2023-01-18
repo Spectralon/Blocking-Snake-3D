@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class Controls : MonoBehaviour
 {
+    #region Unity Editor input
+
     [SerializeField] float _maxDistance = 10f;
     [SerializeField, Min(0)] float _sensitivity = 10f;
 
     public float MaxDistance => _maxDistance;
     public float Sensitivity => _sensitivity;
 
+    #endregion
+
     public State ControlsState { get; private set; } = State.Idle;
 
     public bool IsInit { get; private set; } = false;
 
     private SnakeHead Head;
-
     private GameController GameController;
-
     private float CurrentDistance = 0f;
-
     private bool LeftLimit = false;
-
     private bool RightLimit = false;
 
     public void Init(GameController gameController)

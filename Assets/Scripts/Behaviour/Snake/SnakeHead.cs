@@ -8,8 +8,6 @@ public class SnakeHead : MonoBehaviour
 {
     private Rigidbody _rigidbody;
 
-    private Sequence MoveSequence;
-
     public Rigidbody Rigidbody
     {
         get
@@ -21,7 +19,7 @@ public class SnakeHead : MonoBehaviour
 
     public Controls Controls { get; private set; }
 
-    private Vector3 LastNormal = Vector3.up;
+    private Sequence MoveSequence;
 
     public void Init(Controls controls)
     {
@@ -37,20 +35,5 @@ public class SnakeHead : MonoBehaviour
     public void InterruptMove()
     {
         MoveSequence.Pause();
-    }
-
-    public Vector3 Project(Vector3 forward)
-    {
-        return forward - Vector3.Dot(forward, LastNormal) * LastNormal;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        LastNormal = collision.contacts[0].normal;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        LastNormal = Vector3.up;
     }
 }

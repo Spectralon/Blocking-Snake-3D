@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class FlowSpawner : MonoBehaviour
 {
+    #region Unity Editor input
+
     [SerializeField] FlowingObject _baseInstance;
     [SerializeField] Vector3 _spawnDirection = Vector3.right;
     [SerializeField, Min(0f)] float _intervalDistance = 5f;
@@ -27,7 +29,11 @@ public class FlowSpawner : MonoBehaviour
     public float SpawnChance => _spawnChance;
     public float SpawnInterval => _spawnInterval;
 
+    #endregion
+
     private FlowingObject[] _instances;
+
+    public bool IsActive { get; private set; } = true;
 
     private FlowingObject[] Instances
     {
@@ -49,12 +55,8 @@ public class FlowSpawner : MonoBehaviour
         set => _instances = value;
     }
 
-    public bool IsActive { get; private set; } = true;
-
     private Sequence MoveSequence;
-
     private int NumInstances = 0;
-
     private GameController GameController;
 
     [ContextMenu("Init spawner")]
@@ -135,6 +137,8 @@ public class FlowSpawner : MonoBehaviour
             for (int i = transform.childCount; i > 0; --i)
                 DestroyImmediate(transform.GetChild(0).gameObject);
         }
+        SpawnDirection.Normalize();
+        FlowDirection.Normalize();
         Instances = null;
     }
 
@@ -153,7 +157,7 @@ public class FlowSpawner : MonoBehaviour
 
         for (int i = 0; i < FlowLength; i++)
         {
-            Gizmos.DrawCube(transform.position + i * IntervalDistance * SpawnDirection, size);
+            Gizmos.DrawWireCube(transform.position + i * IntervalDistance * SpawnDirection, size);
         }
 
         Gizmos.color = oldGizmos;

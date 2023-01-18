@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
     public readonly static System.Random Random = new(); //{ get; private set; }
     public readonly static bool Debug = true;
 
+    #region Unity Editor input
+
     [SerializeField] Controls _controls;
     [SerializeField] Snake _snake;
     [SerializeField] FlowSpawner[] _obstacleGenerators;
@@ -14,6 +16,8 @@ public class GameController : MonoBehaviour
     public Controls Controls => _controls;
     public Snake Snake => _snake;
     public FlowSpawner[] ObstacleGenerators => _obstacleGenerators;
+
+    #endregion
 
     private void Start()
     {

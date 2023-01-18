@@ -20,7 +20,6 @@ public class SnakeTail : MonoBehaviour
     public bool IsInit { get; private set; } = false;
 
     private Snake Parent;
-
     private float VelocityFactor;
 
     public void Init(Snake parent, float velocityFactor)

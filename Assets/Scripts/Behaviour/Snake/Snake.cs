@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
+    #region Unity Editor input
+
     [SerializeField] Rigidbody _headPrefab;
     [SerializeField] HingeJoint _segmentPrefab;
     [SerializeField, Min(0)] float _interval = 2.5f;
@@ -13,7 +15,10 @@ public class Snake : MonoBehaviour
 
     public Vector3 GrowDirection => _growDirection;
 
+    #endregion
+
     private Rigidbody _head;
+    private Rigidbody[] _segments;
 
     public Rigidbody Head
     {
@@ -28,8 +33,6 @@ public class Snake : MonoBehaviour
             return _head;
         }
     }
-
-    private Rigidbody[] _segments;
 
     public Rigidbody[] Segments
     {
