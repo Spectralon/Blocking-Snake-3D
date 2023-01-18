@@ -6,7 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class CubeObstacle : FlowingObject
 {
-    private static int Contacts = 0;
+    private static List<CubeObstacle> ContactingObstacles = new();
+
+    private static int Contacts => ContactingObstacles.Count;
 
     #region Unity Editor input
 
@@ -59,7 +61,7 @@ public class CubeObstacle : FlowingObject
 
         DamageTarget = player.Parent;
         if (Contacts == 0) GameController.PauseFlow();
-        Contacts++;
+        ContactingObstacles.Add(this);
     }
 
     private void OnTriggerExit(Collider other)
@@ -67,8 +69,13 @@ public class CubeObstacle : FlowingObject
         if (other.gameObject.GetInstanceID() != HeadInstanceID) return;
 
         DamageTarget = null;
-        Contacts--;
+        ContactingObstacles.Remove(this);
         if (Contacts == 0) GameController.ResumeFlow();
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(DamageDealer());
     }
 
     private IEnumerator DamageDealer()
@@ -91,19 +98,12 @@ public class CubeObstacle : FlowingObject
                 if (Value <= 0)
                 {
                     DamageTarget = null;
-                    Contacts--;
-                    if (Contacts == 0) GameController.ResumeFlow();
+                    ContactingObstacles.Remove(this);
                     Despawn();
+                    if (Contacts == 0) GameController.ResumeFlow();
                 }
             }
             yield return interval;
         }
-
-        Debug.Log(1);
-    }
-
-    private void OnApplicationQuit()
-    {
-        Contacts = 0;
     }
 }

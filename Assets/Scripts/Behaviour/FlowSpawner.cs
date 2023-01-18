@@ -19,18 +19,18 @@ public class FlowSpawner : MonoBehaviour
     [SerializeField, Range(0f, 1f)] float _spawnChance = 0.1f;
     [SerializeField, Min(0.01f)] float _spawnInterval = 2f;
 
-    public Vector3 SpawnDirection => _spawnDirection;
-    public float IntervalDistance => _intervalDistance;
-    public int FlowLength => _flowLength;
-    public int MaxInstances => _maxInstances;
-    public Vector3 FlowDirection => _flowDirection;
-    public float FlowDistance => _flowDistance;
+    private Vector3 SpawnDirection => _spawnDirection;
+    private float IntervalDistance => _intervalDistance;
+    private int FlowLength => _flowLength;
+    private int MaxInstances => _maxInstances;
+    private Vector3 FlowDirection => _flowDirection;
+    private float FlowDistance => _flowDistance;
     public float FlowTime
     {
         get => _flowTime;
         set => _flowTime = Mathf.Max(0.01f, value);
     }
-    public float SpawnChance => _spawnChance;
+    private float SpawnChance => _spawnChance;
     public float SpawnInterval
     {
         get => _spawnInterval;

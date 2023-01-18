@@ -10,7 +10,7 @@ public class Controls : MonoBehaviour
     [SerializeField, Min(0)] float _sensitivity = 10f;
 
     public float MaxDistance => _maxDistance;
-    public float Sensitivity => _sensitivity;
+    private float Sensitivity => _sensitivity;
 
     #endregion
 
