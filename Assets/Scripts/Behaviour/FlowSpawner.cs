@@ -98,9 +98,11 @@ public class FlowSpawner : MonoBehaviour
 
     public void Spawn(FlowingObject instance, Vector3 pos)
     {
-        if (NumInstances >= MaxInstances || 
+        if (
+            NumInstances >= MaxInstances || 
             instance == null || 
-            !instance.CanSpawnAt(transform.TransformPoint(pos)))
+            !instance.CanSpawnAt(transform.TransformPoint(pos))
+            )
             return;
 
         MoveSequence = DOTween.Sequence();
@@ -157,9 +159,11 @@ public class FlowSpawner : MonoBehaviour
     {
         if (!GameController.Debug) return;
 
-        if (_baseInstance == null ||
+        if (
+            _baseInstance == null ||
             !_baseInstance.TryGetComponent<Renderer>(out var renderer)
-            ) return;
+            ) 
+            return;
 
         Vector3 size = renderer.bounds.size;
 

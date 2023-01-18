@@ -6,6 +6,7 @@ using UnityEngine;
 public class WallObstacle : FlowingObject
 {
     private int _headInstanceID = -1;
+
     private int HeadInstanceID
     {
         set => _headInstanceID = value;
@@ -23,34 +24,14 @@ public class WallObstacle : FlowingObject
     {
         if (other.gameObject.GetInstanceID() != HeadInstanceID) return;
 
-        if (GameController.Controls.ControlsState == Controls.State.Idle) GameController.PauseFlow();
+        if (GameController.Controls.ControlsState == Controls.State.Idle) 
+            GameController.PauseFlow();
         else
             GameController.Controls.Limit();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetInstanceID() != HeadInstanceID) return;
-
-        GameController.ResumeFlow();
-        GameController.Controls.Unlimit();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Collider other = collision.collider;
-
-        if (other.gameObject.GetInstanceID() != HeadInstanceID) return;
-
-        if (GameController.Controls.ControlsState == Controls.State.Idle) GameController.PauseFlow();
-        else
-            GameController.Controls.Limit();
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        Collider other = collision.collider;
-
         if (other.gameObject.GetInstanceID() != HeadInstanceID) return;
 
         GameController.ResumeFlow();

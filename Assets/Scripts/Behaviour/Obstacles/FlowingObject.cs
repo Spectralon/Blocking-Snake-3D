@@ -9,7 +9,7 @@ public class FlowingObject : MonoBehaviour
     protected Sequence Sequence;
     protected GameController GameController;
 
-    public void Init(FlowSpawner parent, Sequence sequence, GameController gameController) 
+    public virtual void Init(FlowSpawner parent, Sequence sequence, GameController gameController) 
     {
         Parent = parent;
         Sequence = sequence;

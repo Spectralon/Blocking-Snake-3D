@@ -18,6 +18,12 @@ public class Bonus : FlowingObject
     private Collider _collider;
     private int _value;
 
+    public int Value
+    {
+        get => _value;
+        private set => _value = value;
+    }
+
     public Collider Collider
     {
         get
@@ -25,12 +31,6 @@ public class Bonus : FlowingObject
             if (_collider == null) TryGetComponent(out _collider);
             return _collider;
         }
-    }
-
-    public int Value
-    {
-        get => _value;
-        private set => _value = value;
     }
 
     public override void Spawn()
