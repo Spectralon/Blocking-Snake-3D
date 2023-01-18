@@ -20,4 +20,10 @@ public class FlowingObject : MonoBehaviour
     {
         Sequence?.TogglePause();
     }
+
+    public void Despawn()
+    {
+        Sequence?.Complete();
+        gameObject.SetActive(false);
+    }
 }

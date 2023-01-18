@@ -19,6 +19,7 @@ public class Snake : MonoBehaviour
 
     private Rigidbody _head;
     private Rigidbody[] _segments;
+    private Renderer[] _segmentsRenderer;
 
     public Rigidbody Head
     {
@@ -67,9 +68,27 @@ public class Snake : MonoBehaviour
         }
     }
 
+    private Renderer[] SegmentsRenderer
+    {
+        get
+        {
+            if (_segmentsRenderer == null)
+            {
+                _segmentsRenderer = new Renderer[Segments.Length];
+
+                for (int i = 0; i < Segments.Length; i++)
+                {
+                    _segmentsRenderer[i] = Segments[i].GetComponent<Renderer>();
+                }
+            }
+            return _segmentsRenderer;
+        }
+    }
+
     public bool IsInit { get; private set; } = false;
 
     private GameController GameController;
+    private int HP = 1;
 
     public void Init(GameController gameController)
     {
@@ -77,12 +96,30 @@ public class Snake : MonoBehaviour
 
         GrowDirection.Normalize();
 
-        Head.GetComponent<SnakeHead>().Init(GameController.Controls);
+        Head.GetComponent<SnakeHead>().Init(this);
         Head.gameObject.SetActive(true);
 
         foreach (var segment in Segments)
             segment.gameObject.SetActive(true);
 
+        UpdateGraphics();
+
         IsInit = true;
+    }
+
+    public void AddHP(int amount)
+    {
+        HP += amount;
+        HP = Mathf.Max(1, HP);
+        UpdateGraphics();
+    }
+
+    private void UpdateGraphics()
+    {
+        int limit = HP - 1;
+        for (int i = 0; i < Segments.Length; i++)
+        {
+            SegmentsRenderer[i].enabled = i < limit;
+        }
     }
 }

@@ -99,7 +99,7 @@ public class FlowSpawner : MonoBehaviour
         MoveSequence
             .Append(instance.transform.DOLocalMove(pos + FlowDistance * FlowDirection, FlowTime))
             .SetEase(Ease.Linear)
-            .AppendCallback(() => instance.gameObject.SetActive(false));
+            .AppendCallback(instance.Despawn);
 
         instance.Init(this, MoveSequence, GameController);
     }

@@ -7,6 +7,8 @@ public static class RandomExtensions
     public static bool Chance(this Random rnd, float chance) => rnd.NextDouble() <= chance;
 
     public static float Range(this Random rnd, float minInclusive, float maxInclusive) => (float)(rnd.NextDouble() * (maxInclusive - minInclusive) + minInclusive);
+    
+    public static int Range(this Random rnd, int minInclusive, int maxInclusive) => rnd.Next(minInclusive, maxInclusive + 1);
 
     public static T Random<T>(this T[] array) => array.Length == 0 ? default : array[GameController.Random.Next(0, array.Length)];
 }

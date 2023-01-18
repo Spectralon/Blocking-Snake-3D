@@ -17,13 +17,13 @@ public class SnakeHead : MonoBehaviour
         }
     }
 
-    public Controls Controls { get; private set; }
+    public Snake Parent { get; private set; }
 
     private Sequence MoveSequence;
 
-    public void Init(Controls controls)
+    public void Init(Snake parent)
     {
-        Controls = controls;
+        Parent = parent;
     }
 
     public void TryMove(Vector3 direction)
