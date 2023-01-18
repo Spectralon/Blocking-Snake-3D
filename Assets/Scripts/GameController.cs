@@ -12,10 +12,12 @@ public class GameController : MonoBehaviour
     [SerializeField] Controls _controls;
     [SerializeField] Snake _snake;
     [SerializeField] FlowSpawner[] _obstacleGenerators;
+    [SerializeField, Min(0.001f)] float _gameSpeed = 1f;
 
     public Controls Controls => _controls;
     public Snake Snake => _snake;
     public FlowSpawner[] ObstacleGenerators => _obstacleGenerators;
+    public float GameSpeed => _gameSpeed;
 
     #endregion
 
@@ -26,6 +28,8 @@ public class GameController : MonoBehaviour
 
         foreach (var spawner in ObstacleGenerators)
         {
+            spawner.FlowTime /= GameSpeed;
+            spawner.SpawnInterval /= GameSpeed;
             spawner.Init(this);
         }
     }

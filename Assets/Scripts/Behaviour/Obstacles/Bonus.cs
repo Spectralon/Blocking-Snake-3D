@@ -15,7 +15,17 @@ public class Bonus : FlowingObject
 
     #endregion
 
+    private Collider _collider;
     private int _value;
+
+    public Collider Collider
+    {
+        get
+        {
+            if (_collider == null) TryGetComponent(out _collider);
+            return _collider;
+        }
+    }
 
     public int Value
     {
@@ -23,9 +33,15 @@ public class Bonus : FlowingObject
         private set => _value = value;
     }
 
-    public void OnEnable()
+    public override void Spawn()
     {
         Value = GameController.Random.Range(MinValue, MaxValue);
+        base.Spawn();
+    }
+
+    public override bool CanSpawnAt(Vector3 pos)
+    {
+        return base.CanSpawnAt(pos) && Physics.OverlapSphere(pos, 0.1f).Length == 0;
     }
 
     private void OnTriggerEnter(Collider other)

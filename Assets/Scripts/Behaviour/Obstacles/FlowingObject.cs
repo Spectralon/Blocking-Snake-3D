@@ -21,9 +21,20 @@ public class FlowingObject : MonoBehaviour
         Sequence?.TogglePause();
     }
 
-    public void Despawn()
+    public virtual bool CanSpawnAt(Vector3 pos)
+    {
+        return true;
+    }
+
+    public virtual void Spawn()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public virtual void Despawn()
     {
         Sequence?.Complete();
+        Sequence = null;
         gameObject.SetActive(false);
     }
 }

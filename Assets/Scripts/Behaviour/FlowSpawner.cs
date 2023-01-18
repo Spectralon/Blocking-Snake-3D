@@ -25,9 +25,17 @@ public class FlowSpawner : MonoBehaviour
     public int MaxInstances => _maxInstances;
     public Vector3 FlowDirection => _flowDirection;
     public float FlowDistance => _flowDistance;
-    public float FlowTime => _flowTime;
+    public float FlowTime
+    {
+        get => _flowTime;
+        set => _flowTime = Mathf.Max(0.01f, value);
+    }
     public float SpawnChance => _spawnChance;
-    public float SpawnInterval => _spawnInterval;
+    public float SpawnInterval
+    {
+        get => _spawnInterval;
+        set => _spawnInterval = Mathf.Max(0.01f, value);
+    }
 
     #endregion
 
@@ -90,10 +98,10 @@ public class FlowSpawner : MonoBehaviour
 
     public void Spawn(FlowingObject instance, Vector3 pos)
     {
-        if (NumInstances >= MaxInstances || instance == null) return;
-
-        instance.transform.localPosition = pos;
-        instance.gameObject.SetActive(true);
+        if (NumInstances >= MaxInstances || 
+            instance == null || 
+            !instance.CanSpawnAt(transform.TransformPoint(pos)))
+            return;
 
         MoveSequence = DOTween.Sequence();
         MoveSequence
@@ -102,6 +110,9 @@ public class FlowSpawner : MonoBehaviour
             .AppendCallback(instance.Despawn);
 
         instance.Init(this, MoveSequence, GameController);
+
+        instance.transform.localPosition = pos;
+        instance.Spawn();
     }
 
     public void Pause()
