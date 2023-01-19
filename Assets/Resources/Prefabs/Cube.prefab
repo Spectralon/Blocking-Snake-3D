@@ -288,3 +288,5 @@ MonoBehaviour:
   _maxValue: 5
   _damageInterval: 0.1
   _waitInterval: 0.1
+  _minColor: {r: 1, g: 0.7058824, b: 0.7058824, a: 0.5}
+  _maxColor: {r: 1, g: 0, b: 0, a: 0.5}

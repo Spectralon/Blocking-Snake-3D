@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+[RequireComponent( typeof(Renderer))]
 public class FlowSpawner : MonoBehaviour
 {
     #region Unity Editor input

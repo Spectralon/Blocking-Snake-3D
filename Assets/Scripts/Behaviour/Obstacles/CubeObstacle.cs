@@ -18,17 +18,22 @@ public class CubeObstacle : FlowingObject
     [SerializeField] int _maxValue = 5;
     [SerializeField, Min(0)] float _damageInterval = 0.1f;
     [SerializeField, Min(0)] float _waitInterval = 0.1f;
+    [SerializeField] Color _minColor = Color.red + new Color(0, 0.7f, 0.7f, -0.5f);
+    [SerializeField] Color _maxColor = Color.red + new Color(0, 0, 0, -0.5f);
 
     private TMP_Text Label => _label;
     private int MinValue => _minValue;
     private int MaxValue => _maxValue;
     private float DamageInterval => _damageInterval;
     private float WaitInterval => _waitInterval;
+    private Color MinColor => _minColor;
+    private Color MaxColor => _maxColor;
 
     #endregion
 
     private int _headInstanceID = -1;
     private int _value;
+    private Renderer _renderer;
 
     public int Value
     {
@@ -36,6 +41,9 @@ public class CubeObstacle : FlowingObject
         private set
         {
             _value = value;
+
+            Renderer.material.color = Color.Lerp(MinColor, MaxColor, Mathf.InverseLerp(MinValue, MaxValue, Value));
+
             if (_value > 0) 
                 Label.text = _value.ToString();
             else 
@@ -56,11 +64,21 @@ public class CubeObstacle : FlowingObject
         }
     }
 
+    private Renderer Renderer
+    {
+        get
+        {
+            if (_renderer == null) TryGetComponent(out _renderer);
+            return _renderer;
+        }
+    }
+
     private Snake DamageTarget;
 
     public override void Spawn()
     {
         Value = GameController.Random.Range(MinValue, MaxValue);
+
         base.Spawn();
         StartCoroutine(DamageDealer());
     }
