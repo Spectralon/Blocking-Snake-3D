@@ -20,6 +20,7 @@ public class Snake : MonoBehaviour
     private Rigidbody _head;
     private Rigidbody[] _segments;
     private Renderer[] _segmentsRenderer;
+    private int _score;
 
     public Rigidbody Head
     {
@@ -85,6 +86,12 @@ public class Snake : MonoBehaviour
         }
     }
 
+    public int Score
+    {
+        get => _score;
+        set => _score = Mathf.Max(0, _score);
+    }
+
     public bool IsInit { get; private set; } = false;
 
     private GameController GameController;
@@ -110,7 +117,12 @@ public class Snake : MonoBehaviour
     public void AddHP(int amount)
     {
         HP += amount;
-        HP = Mathf.Max(1, HP);
+        Score += amount;
+
+        if (HP <= 0) Die();
+
+        GameController.UIController.SyncStats();
+
         UpdateGraphics();
     }
 
@@ -121,5 +133,15 @@ public class Snake : MonoBehaviour
         {
             SegmentsRenderer[i].enabled = i < limit;
         }
+    }
+
+    public void Die()
+    {
+        GameController.Lose(this);
+    }
+
+    public void Win()
+    {
+        GameController.Win(this);
     }
 }

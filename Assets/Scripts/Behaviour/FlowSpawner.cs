@@ -139,7 +139,7 @@ public class FlowSpawner : MonoBehaviour
     }
 
     [ContextMenu("Reload spawner")]
-    private void Reload()
+    public void Reload()
     {
         if (Application.isPlaying)
         {
@@ -158,7 +158,7 @@ public class FlowSpawner : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (!GameController.Debug) return;
+        if (!GameController.IsDebug) return;
 
         if (
             _baseInstance == null ||

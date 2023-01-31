@@ -56,7 +56,7 @@ public class Bonus : FlowingObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent<SnakeHead>(out var player)) return;
+        if (!GameController.IsPlaying || !other.TryGetComponent<SnakeHead>(out var player)) return;
 
         player.Parent.AddHP(Value);
 

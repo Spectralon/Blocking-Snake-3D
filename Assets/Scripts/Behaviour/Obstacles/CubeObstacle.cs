@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider))]
 public class CubeObstacle : FlowingObject
@@ -85,7 +86,7 @@ public class CubeObstacle : FlowingObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent<SnakeHead>(out var player)) return;
+        if (!GameController.IsPlaying || !other.TryGetComponent<SnakeHead>(out var player)) return;
 
         DamageTarget = player.Parent;
         if (Contacts == 0) GameController.PauseFlow();
@@ -94,7 +95,7 @@ public class CubeObstacle : FlowingObject
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetInstanceID() != HeadInstanceID) return;
+        if (!GameController.IsPlaying || other.gameObject.GetInstanceID() != HeadInstanceID) return;
 
         DamageTarget = null;
         ContactingObstacles.Remove(this);
@@ -112,7 +113,7 @@ public class CubeObstacle : FlowingObject
         var interval = new WaitForSeconds(WaitInterval);
         var gameObject = this.gameObject;
 
-        while (gameObject.activeSelf)
+        while (gameObject.activeSelf && GameController.IsPlaying)
         {
             if(DamageTarget != null)
             {
@@ -135,7 +136,12 @@ public class CubeObstacle : FlowingObject
         }
     }
 
-    private void OnApplicationQuit()
+    static CubeObstacle()
+    {
+        SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => Reload();
+    }
+
+    private static void Reload()
     {
         ContactingObstacles = new();
     }
