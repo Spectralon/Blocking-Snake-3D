@@ -19,6 +19,7 @@ public class FlowSpawner : MonoBehaviour
     [SerializeField, Min(0.01f)] float _flowTime = 10f;
     [SerializeField, Range(0f, 1f)] float _spawnChance = 0.1f;
     [SerializeField, Min(0.01f)] float _spawnInterval = 2f;
+    [SerializeField] Color _debugColor = Color.yellow;
 
     private Vector3 SpawnDirection => _spawnDirection;
     private float IntervalDistance => _intervalDistance;
@@ -37,6 +38,7 @@ public class FlowSpawner : MonoBehaviour
         get => _spawnInterval;
         set => _spawnInterval = Mathf.Max(0.01f, value);
     }
+    private Color DebugColor => _debugColor;
 
     #endregion
 
@@ -68,7 +70,6 @@ public class FlowSpawner : MonoBehaviour
     private int NumInstances = 0;
     private GameController GameController;
 
-    [ContextMenu("Init spawner")]
     public void Init(GameController gameController)
     {
         GameController = gameController;
@@ -96,6 +97,8 @@ public class FlowSpawner : MonoBehaviour
             yield return interval;
         }
     }
+
+    public void Spawn() => Spawn(Instances[0], Vector3.zero);
 
     public void Spawn(FlowingObject instance, Vector3 pos)
     {
@@ -169,7 +172,7 @@ public class FlowSpawner : MonoBehaviour
         Vector3 size = renderer.bounds.size;
 
         Color oldGizmos = Gizmos.color;
-        Gizmos.color = Color.yellow;
+        Gizmos.color = DebugColor;
 
         for (int i = 0; i < FlowLength; i++)
         {
