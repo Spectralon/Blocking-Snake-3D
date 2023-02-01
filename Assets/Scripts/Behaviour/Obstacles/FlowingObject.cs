@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FlowingObject : MonoBehaviour
 {
+    public bool IsActive { get; private set; } = true;
+
     protected FlowSpawner Parent;
     protected Sequence Sequence;
     protected GameController GameController;
@@ -18,7 +20,10 @@ public class FlowingObject : MonoBehaviour
 
     public void TogglePause()
     {
-        Sequence?.TogglePause();
+        IsActive = !IsActive;
+
+        if (IsActive) Sequence?.Play();
+        else Sequence?.Pause();
     }
 
     public virtual bool CanSpawnAt(Vector3 pos)

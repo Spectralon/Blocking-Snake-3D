@@ -19,6 +19,7 @@ public class FlowSpawner : MonoBehaviour
     [SerializeField, Min(0.01f)] float _flowTime = 10f;
     [SerializeField, Range(0f, 1f)] float _spawnChance = 0.1f;
     [SerializeField, Min(0.01f)] float _spawnInterval = 2f;
+    [SerializeField] Color _debugColor = Color.yellow;
 
     private Vector3 SpawnDirection => _spawnDirection;
     private float IntervalDistance => _intervalDistance;
@@ -37,6 +38,7 @@ public class FlowSpawner : MonoBehaviour
         get => _spawnInterval;
         set => _spawnInterval = Mathf.Max(0.01f, value);
     }
+    private Color DebugColor => _debugColor;
 
     #endregion
 
@@ -68,7 +70,6 @@ public class FlowSpawner : MonoBehaviour
     private int NumInstances = 0;
     private GameController GameController;
 
-    [ContextMenu("Init spawner")]
     public void Init(GameController gameController)
     {
         GameController = gameController;
@@ -97,6 +98,8 @@ public class FlowSpawner : MonoBehaviour
         }
     }
 
+    public void Spawn() => Spawn(Instances[0], Vector3.zero);
+
     public void Spawn(FlowingObject instance, Vector3 pos)
     {
         if (
@@ -118,20 +121,37 @@ public class FlowSpawner : MonoBehaviour
         instance.Spawn();
     }
 
-    public void Pause()
+    public void Pause(bool withChildren = true)
     {
-        if (IsActive) ToggleActive();
+        IsActive = false;
+
+        if (!withChildren) return;
+
+        foreach (var item in Instances)
+        {
+            if (item.IsActive) item.TogglePause();
+        }
     }
 
-    public void Resume()
+    public void Resume(bool withChildren = true)
     {
-        if (!IsActive) ToggleActive();
+        IsActive = true;
+
+        if (!withChildren) return;
+
+        foreach (var item in Instances)
+        {
+            if(!item.IsActive) item.TogglePause();
+        }
     }
 
     [ContextMenu("Toggle Active")]
-    public void ToggleActive()
+    public void ToggleActive(bool withChildren = true)
     {
         IsActive = !IsActive;
+
+        if (!withChildren) return;
+
         foreach (var item in Instances)
         {
             item.TogglePause();
@@ -169,7 +189,7 @@ public class FlowSpawner : MonoBehaviour
         Vector3 size = renderer.bounds.size;
 
         Color oldGizmos = Gizmos.color;
-        Gizmos.color = Color.yellow;
+        Gizmos.color = DebugColor;
 
         for (int i = 0; i < FlowLength; i++)
         {

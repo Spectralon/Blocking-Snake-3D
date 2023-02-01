@@ -19,13 +19,11 @@ public class EventsController : MonoBehaviour
 
     public void PlayerDied(Snake player)
     {
-        //GameState = State.Loss;
         OnPlayerDie.Invoke(player);
     }
 
     public void PlayerWon(Snake player)
     {
-        //GameState = State.Won;
         OnPlayerWin.Invoke(player);
     }
 }
