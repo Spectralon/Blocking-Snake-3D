@@ -104,22 +104,29 @@ public class GameController : MonoBehaviour
 
     public IEnumerator WinTimer()
     {
-        while(GameCycleTime > CurrentTime)
+        float targetTime = FinishDelay + GameCycleTime;
+        bool finishSpawned = false;
+
+        while (targetTime > CurrentTime)
         {
-            if (!IsPaused) CurrentTime += Time.deltaTime;
+            if (!IsPaused)
+            {
+                CurrentTime += Time.deltaTime;
+                UIController.SetProgress(CurrentTime / targetTime);
+
+                if (CurrentTime > GameCycleTime && !finishSpawned)
+                {
+                    foreach (var spawner in ObstacleGenerators)
+                    {
+                        spawner.Pause(false);
+                    }
+                    FinishGenerator.Spawn();
+
+                    finishSpawned = true;
+                }
+            }
             yield return null;
         }
-
-        if (!IsPlaying) yield return null;
-
-        foreach (var spawner in ObstacleGenerators)
-        {
-            spawner.Pause(false);
-        }
-
-        yield return new WaitForSeconds(FinishDelay);
-
-        FinishGenerator.Spawn();
     }
 
     public void Lose(Snake player)

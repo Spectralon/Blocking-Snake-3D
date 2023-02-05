@@ -837,7 +837,7 @@ MonoBehaviour:
   _spawnDirection: {x: 1, y: 0, z: 0}
   _intervalDistance: 4
   _flowLength: 1
-  _maxInstances: 20
+  _maxInstances: 1
   _flowDirection: {x: 0, y: 0, z: -1}
   _flowDistance: 120
   _flowTime: 5
