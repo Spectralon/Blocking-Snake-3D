@@ -6,6 +6,10 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody))]
 public class SnakeHead : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _winParticles;
+    public ParticleSystem WinParticles => _winParticles;
+
+
     private Rigidbody _rigidbody;
 
     public Rigidbody Rigidbody

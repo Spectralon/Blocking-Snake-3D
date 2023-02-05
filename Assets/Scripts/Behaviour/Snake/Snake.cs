@@ -142,6 +142,7 @@ public class Snake : MonoBehaviour
 
     public void Win()
     {
+        Head.GetComponent<SnakeHead>().WinParticles.Play();
         GameController.Win(this);
     }
 }

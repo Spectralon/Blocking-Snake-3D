@@ -392,6 +392,7 @@ MonoBehaviour:
   _maxSegments: 10
   _velocityFactor: 200
   _growDirection: {x: 0, y: 0, z: -1}
+  _winParticles: {fileID: 5585637698581267963, guid: 828e900dbc7b25049ba89e9d645162c5, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
