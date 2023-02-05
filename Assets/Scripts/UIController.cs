@@ -77,6 +77,8 @@ public class UIController : MonoBehaviour
 
         NextLevelButton.onClick.AddListener(GameController.NextLevel);
         RestartButton.onClick.AddListener(GameController.ReloadLevel);
+
+        SyncStats();
     }
 
     public void SetProgress(float progress) => ProgressSprite.fillAmount = Mathf.Clamp(progress * (1 + ProgressOffsetMax), 0, 1);

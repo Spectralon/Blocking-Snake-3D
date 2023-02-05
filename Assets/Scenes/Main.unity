@@ -241,6 +241,7 @@ Transform:
   - {fileID: 1965646256}
   - {fileID: 1792108657}
   - {fileID: 1025516637}
+  - {fileID: 1422486116}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -623,6 +624,7 @@ MonoBehaviour:
   _flowTime: 5
   _spawnChance: 0.3
   _spawnInterval: 1
+  _debugColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &1115486162
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +789,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229506978}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1422486115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1422486116}
+  - component: {fileID: 1422486117}
+  m_Layer: 0
+  m_Name: FinishSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1422486116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422486115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 260083899}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1422486117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422486115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64950075633fe9449b08f1939a1edefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseInstance: {fileID: 3646696992099961177, guid: e5bb4f4357560e741a816c4f5a1e96f7, type: 3}
+  _spawnDirection: {x: 1, y: 0, z: 0}
+  _intervalDistance: 4
+  _flowLength: 1
+  _maxInstances: 20
+  _flowDirection: {x: 0, y: 0, z: -1}
+  _flowDistance: 120
+  _flowTime: 5
+  _spawnChance: 0
+  _spawnInterval: 1
+  _debugColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &1581926784
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +913,10 @@ MonoBehaviour:
   - {fileID: 1965646257}
   - {fileID: 1792108658}
   - {fileID: 1025516638}
+  _finishGenerator: {fileID: 1422486117}
   _gameSpeed: 1
+  _gameCycleTime: 10
+  _finishDelay: 0.5
 --- !u!114 &1581926788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,6 +1012,7 @@ MonoBehaviour:
   _flowTime: 5
   _spawnChance: 0.1
   _spawnInterval: 1
+  _debugColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &1965646255
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,6 +1067,7 @@ MonoBehaviour:
   _flowTime: 5
   _spawnChance: 0.5
   _spawnInterval: 1
+  _debugColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &256966167077218184
 MonoBehaviour:
   m_ObjectHideFlags: 0
