@@ -12,8 +12,12 @@ public class Snake : MonoBehaviour
     [SerializeField, Min(1)] int _maxSegments = 5;
     [SerializeField] float _velocityFactor = 2.5f;
     [SerializeField] Vector3 _growDirection = Vector3.back;
+    [SerializeField] AudioSource _hitAudio;
+    [SerializeField] AudioSource _eatAudio;
 
     public Vector3 GrowDirection => _growDirection;
+    public AudioSource HitAudio => _hitAudio;
+    public AudioSource EatAudio => _eatAudio;
 
     #endregion
 
@@ -118,6 +122,15 @@ public class Snake : MonoBehaviour
     {
         HP += amount;
         Score += amount;
+
+        if(amount > 0)
+        {
+            EatAudio.Play();
+        } 
+        else
+        {
+            HitAudio.Play();
+        }
 
         if (HP <= 0) Die();
 

@@ -394,6 +394,8 @@ MonoBehaviour:
   _maxSegments: 10
   _velocityFactor: 200
   _growDirection: {x: 0, y: 0, z: -1}
+  _hitAudio: {fileID: 605588664}
+  _eatAudio: {fileID: 605588663}
 --- !u!82 &605588663
 AudioSource:
   m_ObjectHideFlags: 0
