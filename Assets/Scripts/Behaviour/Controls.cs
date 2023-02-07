@@ -33,7 +33,7 @@ public class Controls : MonoBehaviour
 
     private void Update()
     {
-        if (!IsInit) return;
+        if (!IsInit || GameController.GameState != GameController.State.Ingame) return;
 
         bool moving = false;
 

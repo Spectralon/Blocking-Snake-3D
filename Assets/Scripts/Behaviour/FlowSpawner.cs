@@ -81,7 +81,7 @@ public class FlowSpawner : MonoBehaviour
     {
         var interval = new WaitForSeconds(SpawnInterval);
 
-        while(true)
+        while(GameController.GameState == GameController.State.Ingame)
         {
             if(IsActive)
             {
