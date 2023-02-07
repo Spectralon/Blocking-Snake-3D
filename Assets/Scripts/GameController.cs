@@ -21,9 +21,12 @@ public class GameController : MonoBehaviour
     [SerializeField] Snake _snake;
     [SerializeField] FlowSpawner[] _obstacleGenerators;
     [SerializeField] FlowSpawner _finishGenerator;
+    [SerializeField] AudioSource _backgroundAudio;
     [SerializeField, Min(0.001f)] float _gameSpeed = 1f;
     [SerializeField, Min(0.001f)] float _gameCycleTime = 60f;
     [SerializeField, Min(0.1f)] float _finishDelay = 0.5f;
+    [SerializeField, Range(0, 1)] private float _musicMinVolume = 0.5f;
+    [SerializeField, Range(0, 1)] private float _volumeFadeSpeed = 0.1f;
 
     public EventsController EventsController => _eventsController;
     public UIController UIController => _UIController;
@@ -31,9 +34,12 @@ public class GameController : MonoBehaviour
     public Snake Snake => _snake;
     public FlowSpawner[] ObstacleGenerators => _obstacleGenerators;
     public FlowSpawner FinishGenerator => _finishGenerator;
+    public AudioSource BackgroundAudio => _backgroundAudio;
     public float GameSpeed => _gameSpeed;
     public float GameCycleTime => _gameCycleTime;
     public float FinishDelay => _finishDelay;
+    public float MusicMinVolume => _musicMinVolume;
+    public float VolumeFadeSpeed => _volumeFadeSpeed;
 
     #endregion
 
@@ -100,6 +106,9 @@ public class GameController : MonoBehaviour
         FinishGenerator.Init(this);
 
         StartCoroutine(WinTimer());
+
+        EventsController.OnPlayerDie.AddListener(e => SetVolume(MusicMinVolume));
+        EventsController.OnPlayerWin.AddListener(e => SetVolume(MusicMinVolume));
     }
 
     public IEnumerator WinTimer()
@@ -127,6 +136,25 @@ public class GameController : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public void SetVolume(float value)
+    {
+        if (BackgroundAudio == null) return;
+        StartCoroutine(SetVolumeLevel(value));
+    }
+
+    private IEnumerator SetVolumeLevel(float value)
+    {
+        var targetVolume = Mathf.Clamp(value, MusicMinVolume, 1);
+        var delta = targetVolume - BackgroundAudio.volume;
+        while (Mathf.Abs(delta) > VolumeFadeSpeed)
+        {
+            BackgroundAudio.volume += Mathf.Sign(delta) * VolumeFadeSpeed * Time.deltaTime;
+            delta = targetVolume - BackgroundAudio.volume;
+            yield return null;
+        }
+        BackgroundAudio.volume = targetVolume;
     }
 
     public void Lose(Snake player)
